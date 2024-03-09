@@ -1,24 +1,29 @@
-import logo from './logo.svg';
+import Authentication from './pages/authentication/Authentication';
+import HomePage from './pages/homepage/HomePage';
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import Message from './pages/message/Message';
+import { useDispatch, useSelector } from 'react-redux';
+import Store from './redux/Store';
+import { GetUserProfileAction } from './redux/Auth/auth.action';
+import { ThemeProvider } from '@mui/material';
+import { darkTheme } from './theme/DarkTheme';
 import './App.css';
 
 function App() {
+  const {auth} = useSelector(Store=>Store)
+  const dispatch=useDispatch()
+  const jwt=localStorage.getItem("jwt")
+  useEffect(()=>{
+    dispatch(GetUserProfileAction(jwt))},[dispatch,jwt])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+        <Routes>
+          <Route path='/*' element={auth.user?<HomePage />:<Authentication/>} />
+          <Route path='/message' element={<Message />} />
+          <Route path='/*' element={<Authentication />} />
+        </Routes>
+    </ThemeProvider>
   );
 }
 
