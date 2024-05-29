@@ -2,7 +2,7 @@ import { Grid,Card } from "@mui/material";
 import React from "react";
 import Login from "./Login";
 import Register from "./Register";
-import { Route, Routes } from "react-router-dom";
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 
 const Authentication = () =>{
     return (
@@ -21,7 +21,9 @@ const Authentication = () =>{
                                 </p>
                             </div>
                             <Routes>
-                                <Route path="/" element={<Login/>}/>
+                            
+                                <Route path="/*" element={<Login/>}/>
+                                {/* <Route path="/*" element={<div>This is login form2</div>}/> */}
                                 <Route path="/login" element={<Login/>}/>
                                 <Route path="/register" element={<Register/>}/>
                             </Routes>

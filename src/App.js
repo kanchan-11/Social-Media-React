@@ -15,11 +15,13 @@ function App() {
   const dispatch=useDispatch()
   const jwt=localStorage.getItem("jwt")
   useEffect(()=>{
+    
     dispatch(GetUserProfileAction(jwt))},[dispatch,jwt])
   return (
     <ThemeProvider theme={darkTheme}>
         <Routes>
           <Route path='/*' element={auth.user?<HomePage />:<Authentication/>} />
+          <Route path='/*' element={<Authentication/>} />
           <Route path='/message' element={<Message />} />
           <Route path='/*' element={<Authentication />} />
         </Routes>
