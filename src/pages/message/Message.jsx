@@ -79,7 +79,7 @@ const Message = () => {
     setMesseges([...messeges,message.message])
   },[message.message])
   useEffect(()=>{
-    const sock=new SockJS("http://localhost:5454/ws")
+    const sock=new SockJS("https://spring-projects-social-media.azuremicroservices.io/ws")
     const stomp = Stom.over(sock)
     setStompClient(stomp)
     stomp.connect({},onConnect,onErr)
